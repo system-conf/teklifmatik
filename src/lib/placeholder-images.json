@@ -3,8 +3,8 @@
     {
       "id": "companyLogo",
       "description": "A placeholder for the company logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1595409583957-5d1ec5869de9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwbHVtYmluZyUyMGNvbXBhbnklMjBsb2dvfGVufDB8fHx8MTc1OTI1NzM4OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "plumbing company logo"
+      "imageUrl": "https://storage.googleapis.com/stedi-dev-public/logo-sahin-tesisat.png",
+      "imageHint": "plumber character logo"
     }
   ]
 }
