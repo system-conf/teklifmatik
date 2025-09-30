@@ -42,8 +42,8 @@ export default function QuoteForm() {
 
   return (
     <Form {...form}>
-      <form className="space-y-6">
-        <Card>
+      <form className="flex flex-col space-y-6">
+        <Card className="order-2 md:order-1">
           <CardHeader>
             <div className="flex items-center gap-3">
               <Building2 className="h-6 w-6" />
@@ -111,7 +111,7 @@ export default function QuoteForm() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="order-3 md:order-2">
           <CardHeader>
             <div className="flex items-center gap-3">
               <User className="h-6 w-6" />
@@ -151,7 +151,7 @@ export default function QuoteForm() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="order-1 md:order-3">
           <CardHeader>
             <div className="flex items-center gap-3">
                 <FileText className="h-6 w-6" />
@@ -306,7 +306,7 @@ export default function QuoteForm() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="order-4">
           <CardHeader>
              <div className="flex items-center gap-3">
                 <Percent className="h-6 w-6" />
