@@ -31,19 +31,21 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
 
   return (
     <div className="bg-white text-black p-4 sm:p-8 font-sans text-sm border border-gray-300">
-      <header className="flex flex-col sm:flex-row justify-between items-start mb-8 pb-4 border-b border-gray-300">
-        <div className="flex-auto pr-4 mb-4 sm:mb-0">
-            {logoUrl && <img src={logoUrl} alt="Company Logo" className="w-32 sm:w-40 h-auto mb-4" />}
-           <div>
+       <header className="flex justify-between items-center mb-4 pb-4 border-b border-gray-300">
+        <div className="flex items-center gap-4">
+          {logoUrl && <img src={logoUrl} alt="Company Logo" className="w-32 sm:w-40 h-auto" />}
+          <div>
             <p className="text-xs text-gray-600">{companyAddress}</p>
             <p className="text-xs text-gray-600">Telefon: {companyPhone}</p>
             <p className="text-xs text-gray-600">E-posta: {companyEmail}</p>
           </div>
         </div>
-        <div className="text-center w-full absolute top-4 left-0 sm:relative sm:top-0">
-            <h1 className="text-lg sm:text-2xl font-bold uppercase">Müşteri Teklif ve Sipariş Formu</h1>
-        </div>
       </header>
+
+      <div className="text-center mb-8">
+        <h1 className="text-lg sm:text-2xl font-bold uppercase">Müşteri Teklif ve Sipariş Formu</h1>
+      </div>
+
 
       <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 pb-4 border-b border-gray-300 text-xs">
          <div className="border border-gray-300">
