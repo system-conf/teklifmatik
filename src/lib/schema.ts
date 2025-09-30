@@ -2,7 +2,8 @@ import { z } from 'zod';
 
 export const serviceItemSchema = z.object({
   description: z.string().min(1, 'Açıklama gereklidir.'),
-  cost: z.coerce.number().nonnegative('Maliyet negatif olamaz.'),
+  quantity: z.coerce.number().min(1, 'Adet en az 1 olmalıdır.'),
+  unitPrice: z.coerce.number().nonnegative('Birim fiyat negatif olamaz.'),
 });
 
 export const formSchema = z.object({

@@ -177,7 +177,8 @@ export default function QuoteForm() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Açıklama</TableHead>
-                    <TableHead className="w-[120px] text-right">Maliyet (₺)</TableHead>
+                    <TableHead className="w-[80px]">Adet</TableHead>
+                    <TableHead className="w-[120px] text-right">Birim Fiyatı (₺)</TableHead>
                     <TableHead className="w-[50px]"></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -198,10 +199,24 @@ export default function QuoteForm() {
                           )}
                         />
                       </TableCell>
+                       <TableCell>
+                         <FormField
+                          control={form.control}
+                          name={`serviceItems.${index}.quantity`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input type="number" {...field} />
+                              </FormControl>
+                              <FormMessage/>
+                            </FormItem>
+                          )}
+                        />
+                      </TableCell>
                       <TableCell>
                          <FormField
                           control={form.control}
-                          name={`serviceItems.${index}.cost`}
+                          name={`serviceItems.${index}.unitPrice`}
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
@@ -233,7 +248,7 @@ export default function QuoteForm() {
               variant="outline"
               size="sm"
               className="mt-4"
-              onClick={() => append({ description: '', cost: 0 })}
+              onClick={() => append({ description: '', quantity: 1, unitPrice: 0 })}
             >
               <Plus className="mr-2 h-4 w-4" />
               Kalem Ekle

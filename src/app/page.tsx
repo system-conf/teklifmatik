@@ -32,11 +32,11 @@ export default function Home() {
       quoteDate: '',
       quoteId: '',
       serviceItems: [
-        { description: 'Su kaçağı tespiti', cost: 0 },
-        { description: 'Tıkalı boru açma', cost: 0 },
-        { description: 'Temiz – pis su tesisatı', cost: 0 },
-        { description: 'Kombi montajı', cost: 0 },
-        { description: 'Fayans işleri', cost: 0 },
+        { description: 'Su kaçağı tespiti', quantity: 1, unitPrice: 0 },
+        { description: 'Tıkalı boru açma', quantity: 1, unitPrice: 0 },
+        { description: 'Temiz – pis su tesisatı', quantity: 1, unitPrice: 0 },
+        { description: 'Kombi montajı', quantity: 1, unitPrice: 0 },
+        { description: 'Fayans işleri', quantity: 1, unitPrice: 0 },
       ],
     },
     mode: 'onChange',
@@ -54,33 +54,37 @@ export default function Home() {
   const handleDownloadPdf = async () => {
     const element = previewRef.current;
     if (!element) return;
-
+  
     setIsGeneratingPdf(true);
     try {
-      // Temporarily give the element a fixed width for consistent rendering
-      element.style.width = '800px';
-
+      // Ensure the preview is rendered at a consistent width
+      const originalWidth = element.style.width;
+      element.style.width = '1024px'; // A reasonable width for A4
+  
+      await new Promise(resolve => setTimeout(resolve, 0)); // Allow DOM to update
+  
       const canvas = await html2canvas(element, {
-        scale: 2,
+        scale: 2, // Higher scale for better quality
         useCORS: true,
-        backgroundColor: '#ffffff', // Explicitly set a background color
+        backgroundColor: '#ffffff',
+        windowWidth: 1024,
+        windowHeight: element.scrollHeight,
       });
-
-      // Restore original style
-      element.style.width = '';
-
+  
+      // Restore original width
+      element.style.width = originalWidth;
+  
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       
-      // Check if content exceeds one page and handle it if necessary (basic handling)
       let heightLeft = pdfHeight;
       let position = 0;
       
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
       heightLeft -= pdf.internal.pageSize.getHeight();
-
+  
       while (heightLeft > 0) {
         position = heightLeft - pdfHeight;
         pdf.addPage();
