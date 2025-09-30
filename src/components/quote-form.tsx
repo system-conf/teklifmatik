@@ -226,15 +226,15 @@ export default function QuoteForm() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Açıklama</TableHead>
-                    <TableHead className="w-[80px]">Adet</TableHead>
-                    <TableHead className="w-[120px] text-right">Birim Fiyatı (₺)</TableHead>
+                    <TableHead className="w-[100px]">Adet</TableHead>
+                    <TableHead className="w-[140px]">Birim Fiyatı (₺)</TableHead>
                     <TableHead className="w-[50px]"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {fields.map((field, index) => (
                     <TableRow key={field.id}>
-                      <TableCell>
+                      <TableCell className="p-1">
                         <FormField
                           control={form.control}
                           name={`serviceItems.${index}.description`}
@@ -248,21 +248,21 @@ export default function QuoteForm() {
                           )}
                         />
                       </TableCell>
-                       <TableCell>
+                       <TableCell className="p-1">
                          <FormField
                           control={form.control}
                           name={`serviceItems.${index}.quantity`}
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input type="number" {...field} />
+                                <Input type="number" {...field} className="text-center" />
                               </FormControl>
                               <FormMessage/>
                             </FormItem>
                           )}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="p-1">
                          <FormField
                           control={form.control}
                           name={`serviceItems.${index}.unitPrice`}
@@ -276,7 +276,7 @@ export default function QuoteForm() {
                           )}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="p-1">
                         <Button
                           type="button"
                           variant="ghost"
@@ -354,3 +354,5 @@ export default function QuoteForm() {
     </Form>
   );
 }
+
+    
