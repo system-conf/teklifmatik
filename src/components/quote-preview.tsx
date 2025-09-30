@@ -1,6 +1,5 @@
 "use client";
 
-import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { QuoteFormData } from '@/lib/schema';
 
@@ -25,10 +24,11 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
     quoteDate,
     quoteId,
     serviceItems,
+    includeVat,
   } = watchedData;
 
   const subtotal = serviceItems?.reduce((sum, item) => sum + (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0), 0) || 0;
-  const vat = subtotal * 0.20; // %20 KDV
+  const vat = includeVat ? subtotal * 0.20 : 0; // %20 KDV
   const total = subtotal + vat;
 
   return (
@@ -130,10 +130,12 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
                         <td className="p-2 font-semibold">TOPLAM TUTAR</td>
                         <td className="p-2 text-right border border-gray-300">{formatCurrency(subtotal)}</td>
                     </tr>
-                    <tr>
-                        <td className="p-2 font-semibold">20% KDV</td>
-                        <td className="p-2 text-right border border-gray-300">{formatCurrency(vat)}</td>
-                    </tr>
+                    {includeVat && (
+                      <tr>
+                          <td className="p-2 font-semibold">20% KDV</td>
+                          <td className="p-2 text-right border border-gray-300">{formatCurrency(vat)}</td>
+                      </tr>
+                    )}
                     <tr>
                         <td className="p-2 font-bold bg-gray-100">GENEL TOPLAM</td>
                         <td className="p-2 text-right font-bold bg-gray-100 border border-gray-300">{formatCurrency(total)}</td>

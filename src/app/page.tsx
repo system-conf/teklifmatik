@@ -35,6 +35,7 @@ export default function Home() {
         { description: 'Kombi montajı', quantity: 1, unitPrice: 0 },
         { description: 'Fayans işleri', quantity: 1, unitPrice: 0 },
       ],
+      includeVat: true,
     },
     mode: 'onChange',
   });

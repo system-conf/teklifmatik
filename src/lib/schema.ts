@@ -16,6 +16,7 @@ export const formSchema = z.object({
   quoteDate: z.string().min(1, 'Tarih gereklidir.'),
   quoteId: z.string().min(1, 'Teklif No gereklidir.'),
   serviceItems: z.array(serviceItemSchema).min(1, 'En az bir hizmet kalemi gereklidir.'),
+  includeVat: z.boolean(),
 });
 
 export type QuoteFormData = z.infer<typeof formSchema>;

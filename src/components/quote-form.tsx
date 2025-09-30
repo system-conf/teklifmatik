@@ -11,6 +11,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,8 +27,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Building2, Plus, Trash2, User, FileText } from 'lucide-react';
+import { Building2, Plus, Trash2, User, FileText, Percent } from 'lucide-react';
 import type { QuoteFormData } from '@/lib/schema';
+import { Switch } from '@/components/ui/switch';
 
 export default function QuoteForm() {
   const form = useFormContext<QuoteFormData>();
@@ -239,6 +241,40 @@ export default function QuoteForm() {
               <Plus className="mr-2 h-4 w-4" />
               Kalem Ekle
             </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+             <div className="flex items-center gap-3">
+                <Percent className="h-6 w-6" />
+                <div>
+                    <CardTitle>Vergi</CardTitle>
+                    <CardDescription>Hesaplamalara KDV ekleyin.</CardDescription>
+                </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <FormField
+              control={form.control}
+              name="includeVat"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>KDV Dahil (%20)</FormLabel>
+                    <FormDescription>
+                      Toplam tutara KDV eklensin mi?
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </CardContent>
         </Card>
       </form>
