@@ -16,7 +16,7 @@ export const formSchema = z.object({
   billToAddress: z.string().min(1, 'Müşteri adresi gereklidir.'),
   quoteDate: z.string().min(1, 'Tarih gereklidir.'),
   quoteId: z.string().min(1, 'Teklif No gereklidir.'),
-  serviceItems: z.array(serviceItemSchema).min(1, 'En az bir hizmet kalemi gereklidir.'),
+  serviceItems: z.array(serviceItemSchema),
   includeVat: z.boolean(),
   vatRate: z.coerce.number().min(0, 'KDV oranı negatif olamaz.').max(100, 'KDV oranı 100\'den büyük olamaz.'),
 });
