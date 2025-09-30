@@ -7,6 +7,7 @@ export const serviceItemSchema = z.object({
 });
 
 export const formSchema = z.object({
+  logoUrl: z.string().url('Geçerli bir URL giriniz.').optional().or(z.literal('')),
   companyName: z.string().min(1, 'Firma adı gereklidir.'),
   companyAddress: z.string().min(1, 'Firma adresi gereklidir.'),
   companyPhone: z.string().min(1, 'Telefon numarası gereklidir.'),

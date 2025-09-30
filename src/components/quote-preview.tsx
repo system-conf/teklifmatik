@@ -1,10 +1,9 @@
 "use client";
 
-import { Logo } from '@/components/icons';
 import type { QuoteFormData } from '@/lib/schema';
 
 interface QuotePreviewProps {
-  watchedData: Omit<QuoteFormData, 'logoUrl'>;
+  watchedData: QuoteFormData;
 }
 
 const formatCurrency = (amount: number) =>
@@ -12,6 +11,7 @@ const formatCurrency = (amount: number) =>
 
 export default function QuotePreview({ watchedData }: QuotePreviewProps) {
   const {
+    logoUrl,
     companyName,
     companyAddress,
     companyPhone,
@@ -33,7 +33,7 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
     <div className="bg-white text-black p-4 sm:p-8 font-sans text-sm border border-gray-300">
       <header className="flex flex-col sm:flex-row justify-between items-start mb-8 pb-4 border-b border-gray-300">
         <div className="flex-auto pr-4 mb-4 sm:mb-0">
-            <Logo className="w-32 sm:w-40 h-auto mb-4" />
+            {logoUrl && <img src={logoUrl} alt="Company Logo" className="w-32 sm:w-40 h-auto mb-4" />}
            <div>
             <p className="text-xs text-gray-600">{companyAddress}</p>
             <p className="text-xs text-gray-600">Telefon: {companyPhone}</p>

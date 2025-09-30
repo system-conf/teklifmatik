@@ -11,7 +11,6 @@ import QuoteForm from '@/components/quote-form';
 import QuotePreview from '@/components/quote-preview';
 import { Button } from '@/components/ui/button';
 import { Download, Loader2 } from 'lucide-react';
-import { Logo } from '@/components/icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function Home() {
@@ -21,6 +20,7 @@ export default function Home() {
   const methods = useForm<QuoteFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      logoUrl: '/logo.png',
       companyName: 'Şahin Tesisat',
       companyAddress: 'Kemalpaşa Mah. İmaret Yokuşu Sk. No:28 - İzmit / KOCAELİ',
       companyPhone: '0534 948 23 74',
@@ -113,7 +113,6 @@ export default function Home() {
         <header className="bg-card border-b sticky top-0 z-20 shadow-sm">
           <div className="container mx-auto flex justify-between items-center p-4">
             <div className="flex items-center gap-3">
-              <Logo className="h-10 w-10 text-primary" />
               <h1 className="text-2xl font-bold font-headline text-card-foreground">
                 Teklifmatik
               </h1>

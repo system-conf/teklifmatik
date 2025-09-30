@@ -11,7 +11,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,7 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Building2, Plus, Trash2, User, FileText, Percent } from 'lucide-react';
+import { Building2, Plus, Trash2, User, FileText, Percent, Link } from 'lucide-react';
 import type { QuoteFormData } from '@/lib/schema';
 import { Switch } from '@/components/ui/switch';
 
@@ -54,6 +53,22 @@ export default function QuoteForm() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
+             <FormField
+              control={form.control}
+              name="logoUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Logo URL</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center gap-2">
+                       <Link className="h-4 w-4 text-muted-foreground" />
+                       <Input placeholder="https://..." {...field} />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="companyName"
@@ -324,9 +339,6 @@ export default function QuoteForm() {
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
                     <FormLabel>KDV Dahil</FormLabel>
-                    <FormDescription>
-                      Toplam tutara KDV eklensin mi?
-                    </FormDescription>
                   </div>
                   <FormControl>
                     <Switch
