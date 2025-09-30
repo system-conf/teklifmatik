@@ -29,8 +29,8 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
 
   return (
     <div className="bg-white text-black p-8 font-sans text-sm">
-      <header className="flex justify-between items-start mb-10">
-        <div>
+      <header className="flex justify-between items-start mb-10 flex-wrap">
+        <div className="flex-auto pr-4 mb-4">
           {logoUrl && (
             <Image
               src={logoUrl}
@@ -47,7 +47,7 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
           <p className="text-gray-600">{companyPhone}</p>
           <p className="text-gray-600">{companyEmail}</p>
         </div>
-        <div className="text-right">
+        <div className="text-right min-w-[200px]">
           <h2 className="text-4xl font-bold text-gray-400 uppercase tracking-widest">Teklif</h2>
           <p className="mt-2 text-gray-600">
             <span className="font-semibold">Teklif No:</span> {quoteId}
@@ -65,24 +65,26 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
       </section>
 
       <section>
-        <table className="w-full text-left">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-3 font-semibold text-gray-700">Açıklama</th>
-              <th className="p-3 font-semibold text-gray-700 text-right w-40">Tutar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {serviceItems?.map((item, index) => (
-              <tr key={index} className="border-b border-gray-100">
-                <td className="p-3 text-gray-800">{item.description}</td>
-                <td className="p-3 text-gray-800 text-right">
-                  {new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(item.cost || 0)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="w-full overflow-x-auto">
+            <table className="w-full text-left min-w-[600px]">
+            <thead className="bg-gray-100">
+                <tr>
+                <th className="p-3 font-semibold text-gray-700">Açıklama</th>
+                <th className="p-3 font-semibold text-gray-700 text-right w-40">Tutar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {serviceItems?.map((item, index) => (
+                <tr key={index} className="border-b border-gray-100">
+                    <td className="p-3 text-gray-800">{item.description}</td>
+                    <td className="p-3 text-gray-800 text-right">
+                    {new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(item.cost || 0)}
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+        </div>
       </section>
 
       <section className="flex justify-end mt-6">

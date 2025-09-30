@@ -52,20 +52,42 @@ export default function Home() {
   }, [methods]);
 
   const handleDownloadPdf = async () => {
-    if (!previewRef.current) return;
+    const element = previewRef.current;
+    if (!element) return;
 
     setIsGeneratingPdf(true);
     try {
-      const canvas = await html2canvas(previewRef.current, {
+      // Temporarily give the element a fixed width for consistent rendering
+      element.style.width = '800px';
+
+      const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
-        backgroundColor: null,
+        backgroundColor: '#ffffff', // Explicitly set a background color
       });
+
+      // Restore original style
+      element.style.width = '';
+
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      // Check if content exceeds one page and handle it if necessary (basic handling)
+      let heightLeft = pdfHeight;
+      let position = 0;
+      
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      heightLeft -= pdf.internal.pageSize.getHeight();
+
+      while (heightLeft > 0) {
+        position = heightLeft - pdfHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+        heightLeft -= pdf.internal.pageSize.getHeight();
+      }
+      
       pdf.save(`teklif-${methods.getValues('quoteId')}.pdf`);
     } catch (error) {
       console.error('Failed to generate PDF', error);
@@ -75,6 +97,10 @@ export default function Home() {
       });
     } finally {
       setIsGeneratingPdf(false);
+      // Ensure style is restored even on error
+      if (element) {
+        element.style.width = '';
+      }
     }
   };
   
@@ -113,8 +139,8 @@ export default function Home() {
                     {isGeneratingPdf ? 'Oluşturuluyor...' : 'PDF İndir'}
                   </Button>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg p-px overflow-hidden">
-                  <div ref={previewRef} className="p-8">
+                <div className="bg-white rounded-lg shadow-lg overflow-auto">
+                   <div ref={previewRef} className="p-8 bg-white">
                     <QuotePreview watchedData={watchedData} />
                   </div>
                 </div>
