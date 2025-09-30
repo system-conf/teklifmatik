@@ -15,7 +15,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function Home() {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
-  const previewRef = useRef<HTMLDivElement>(null);
+  const desktopPreviewRef = useRef<HTMLDivElement>(null);
+  const mobilePreviewRef = useRef<HTMLDivElement>(null);
+
 
   const methods = useForm<QuoteFormData>({
     resolver: zodResolver(formSchema),
@@ -51,7 +53,7 @@ export default function Home() {
     }
   }, [methods]);
 
-  const handleDownloadPdf = async () => {
+  const handleDownloadPdf = async (previewRef: React.RefObject<HTMLDivElement>) => {
     const element = previewRef.current;
     if (!element) return;
   
@@ -131,7 +133,7 @@ export default function Home() {
               <div className="sticky top-24">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-2xl font-bold font-headline">Teklif Önizlemesi</h2>
-                  <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                  <Button onClick={() => handleDownloadPdf(desktopPreviewRef)} disabled={isGeneratingPdf} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                     {isGeneratingPdf ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
@@ -141,7 +143,7 @@ export default function Home() {
                   </Button>
                 </div>
                 <div className="bg-white rounded-lg shadow-lg overflow-auto max-h-[calc(100vh-8rem)]">
-                   <div ref={previewRef} className="p-8 bg-white">
+                   <div ref={desktopPreviewRef} className="p-8 bg-white">
                     <QuotePreview watchedData={watchedData} />
                   </div>
                 </div>
@@ -163,7 +165,7 @@ export default function Home() {
               </TabsContent>
               <TabsContent value="preview">
                  <div className="pt-4">
-                    <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <Button onClick={() => handleDownloadPdf(mobilePreviewRef)} disabled={isGeneratingPdf} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                       {isGeneratingPdf ? (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       ) : (
@@ -172,7 +174,7 @@ export default function Home() {
                       {isGeneratingPdf ? 'Oluşturuluyor...' : 'PDF İndir'}
                     </Button>
                     <div className="bg-white rounded-lg shadow-lg overflow-auto mt-4">
-                      <div ref={previewRef} className="p-4 bg-white">
+                      <div ref={mobilePreviewRef} className="p-4 bg-white">
                         <QuotePreview watchedData={watchedData} />
                       </div>
                     </div>
@@ -185,3 +187,5 @@ export default function Home() {
     </FormProvider>
   );
 }
+
+    
