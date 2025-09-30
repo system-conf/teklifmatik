@@ -12,6 +12,7 @@ import QuotePreview from '@/components/quote-preview';
 import { Button } from '@/components/ui/button';
 import { Download, Loader2 } from 'lucide-react';
 import { Logo } from '@/components/icons';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function Home() {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
@@ -56,21 +57,19 @@ export default function Home() {
   
     setIsGeneratingPdf(true);
     try {
-      // Ensure the preview is rendered at a consistent width
       const originalWidth = element.style.width;
-      element.style.width = '1024px'; // A reasonable width for A4
+      element.style.width = '1024px'; 
   
-      await new Promise(resolve => setTimeout(resolve, 0)); // Allow DOM to update
+      await new Promise(resolve => setTimeout(resolve, 0));
   
       const canvas = await html2canvas(element, {
-        scale: 2, // Higher scale for better quality
+        scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
         windowWidth: 1024,
         windowHeight: element.scrollHeight,
       });
   
-      // Restore original width
       element.style.width = originalWidth;
   
       const imgData = canvas.toDataURL('image/png');
@@ -100,7 +99,6 @@ export default function Home() {
       });
     } finally {
       setIsGeneratingPdf(false);
-      // Ensure style is restored even on error
       if (element) {
         element.style.width = '';
       }
@@ -124,7 +122,8 @@ export default function Home() {
         </header>
 
         <main className="container mx-auto p-4 md:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             <div className="lg:col-span-2 flex flex-col gap-6">
               <QuoteForm />
             </div>
@@ -142,13 +141,45 @@ export default function Home() {
                     {isGeneratingPdf ? 'Oluşturuluyor...' : 'PDF İndir'}
                   </Button>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg overflow-auto">
+                <div className="bg-white rounded-lg shadow-lg overflow-auto max-h-[calc(100vh-8rem)]">
                    <div ref={previewRef} className="p-8 bg-white">
                     <QuotePreview watchedData={watchedData} />
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Mobile Layout */}
+          <div className="lg:hidden">
+            <Tabs defaultValue="form" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="form">Form</TabsTrigger>
+                <TabsTrigger value="preview">Önizleme</TabsTrigger>
+              </TabsList>
+              <TabsContent value="form">
+                <div className="flex flex-col gap-6 py-4">
+                  <QuoteForm />
+                </div>
+              </TabsContent>
+              <TabsContent value="preview">
+                 <div className="pt-4">
+                    <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                      {isGeneratingPdf ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <Download className="mr-2 h-4 w-4" />
+                      )}
+                      {isGeneratingPdf ? 'Oluşturuluyor...' : 'PDF İndir'}
+                    </Button>
+                    <div className="bg-white rounded-lg shadow-lg overflow-auto mt-4">
+                      <div ref={previewRef} className="p-4 bg-white">
+                        <QuotePreview watchedData={watchedData} />
+                      </div>
+                    </div>
+                 </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </main>
       </div>

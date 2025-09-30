@@ -30,90 +30,92 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
   const total = subtotal + vatAmount;
 
   return (
-    <div className="bg-white text-black p-8 font-sans text-sm border border-gray-300">
-      <header className="flex justify-between items-start mb-8 pb-4 border-b border-gray-300">
-        <div className="flex-auto pr-4 mb-4">
-            <Logo className="w-40 h-auto mb-4" />
+    <div className="bg-white text-black p-4 sm:p-8 font-sans text-sm border border-gray-300">
+      <header className="flex flex-col sm:flex-row justify-between items-start mb-8 pb-4 border-b border-gray-300">
+        <div className="flex-auto pr-4 mb-4 sm:mb-0">
+            <Logo className="w-32 sm:w-40 h-auto mb-4" />
            <div>
             <p className="text-xs text-gray-600">{companyAddress}</p>
             <p className="text-xs text-gray-600">Telefon: {companyPhone}</p>
             <p className="text-xs text-gray-600">E-posta: {companyEmail}</p>
           </div>
         </div>
-        <div className="text-center w-full absolute">
-            <h1 className="text-2xl font-bold uppercase">Müşteri Teklif ve Sipariş Formu</h1>
+        <div className="text-center w-full absolute top-4 left-0 sm:relative sm:top-0">
+            <h1 className="text-lg sm:text-2xl font-bold uppercase">Müşteri Teklif ve Sipariş Formu</h1>
         </div>
       </header>
 
-      <section className="grid grid-cols-2 gap-4 mb-8 pb-4 border-b border-gray-300 text-xs">
+      <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 pb-4 border-b border-gray-300 text-xs">
          <div className="border border-gray-300">
             <div className="flex">
-                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-32">MÜŞTERİ ADI</div>
+                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-24 sm:w-32">MÜŞTERİ ADI</div>
                 <div className="p-1 flex-1">{billToName}</div>
             </div>
              <div className="flex border-t border-gray-300">
-                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-32">ADRES</div>
+                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-24 sm:w-32">ADRES</div>
                 <div className="p-1 flex-1">{billToAddress}</div>
             </div>
         </div>
         <div className="border border-gray-300">
             <div className="flex">
-                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-32">TEKLİF NO</div>
+                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-24 sm:w-32">TEKLİF NO</div>
                 <div className="p-1 flex-1">{quoteId}</div>
             </div>
              <div className="flex border-t border-gray-300">
-                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-32">TEKLİF TARİHİ</div>
+                <div className="p-1 border-r border-gray-300 font-semibold bg-gray-100 w-24 sm:w-32">TEKLİF TARİHİ</div>
                 <div className="p-1 flex-1">{quoteDate}</div>
             </div>
         </div>
       </section>
 
       <section className="mb-8">
-        <table className="w-full text-left text-xs border-collapse border border-gray-300">
-            <thead>
-                <tr className="bg-gray-100">
-                    <th className="p-2 border border-gray-300 font-semibold text-center w-10">NO</th>
-                    <th className="p-2 border border-gray-300 font-semibold">İŞİN ADI</th>
-                    <th className="p-2 border border-gray-300 font-semibold text-center w-20">MİKTARI</th>
-                    <th className="p-2 border border-gray-300 font-semibold text-right w-32">BR. FİYATI</th>
-                    <th className="p-2 border border-gray-300 font-semibold text-right w-32">TUTARI</th>
-                </tr>
-            </thead>
-            <tbody>
-                {serviceItems?.map((item, index) => {
-                    const itemTotal = (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0);
-                    return (
-                        <tr key={index}>
-                            <td className="p-2 border border-gray-300 text-center">{index + 1}</td>
-                            <td className="p-2 border border-gray-300">{item.description}</td>
-                            <td className="p-2 border border-gray-300 text-center">{item.quantity}</td>
-                            <td className="p-2 border border-gray-300 text-right">{formatCurrency(item.unitPrice || 0)}</td>
-                            <td className="p-2 border border-gray-300 text-right">{formatCurrency(itemTotal)}</td>
-                        </tr>
-                    );
-                })}
-                {/* Fill empty rows */}
-                {Array.from({ length: Math.max(0, 10 - (serviceItems?.length || 0)) }).map((_, index) => (
-                    <tr key={`empty-${index}`}>
-                        <td className="p-2 border border-gray-300 text-center">{(serviceItems?.length || 0) + index + 1}</td>
-                        <td className="p-2 border border-gray-300">&nbsp;</td>
-                        <td className="p-2 border border-gray-300"></td>
-                        <td className="p-2 border border-gray-300"></td>
-                        <td className="p-2 border border-gray-300 text-right">{formatCurrency(0)}</td>
+        <div className="w-full overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse border border-gray-300 min-w-[600px]">
+                <thead>
+                    <tr className="bg-gray-100">
+                        <th className="p-2 border border-gray-300 font-semibold text-center w-10">NO</th>
+                        <th className="p-2 border border-gray-300 font-semibold">İŞİN ADI</th>
+                        <th className="p-2 border border-gray-300 font-semibold text-center w-20">MİKTARI</th>
+                        <th className="p-2 border border-gray-300 font-semibold text-right w-32">BR. FİYATI</th>
+                        <th className="p-2 border border-gray-300 font-semibold text-right w-32">TUTARI</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {serviceItems?.map((item, index) => {
+                        const itemTotal = (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0);
+                        return (
+                            <tr key={index}>
+                                <td className="p-2 border border-gray-300 text-center">{index + 1}</td>
+                                <td className="p-2 border border-gray-300">{item.description}</td>
+                                <td className="p-2 border border-gray-300 text-center">{item.quantity}</td>
+                                <td className="p-2 border border-gray-300 text-right">{formatCurrency(item.unitPrice || 0)}</td>
+                                <td className="p-2 border border-gray-300 text-right">{formatCurrency(itemTotal)}</td>
+                            </tr>
+                        );
+                    })}
+                    {/* Fill empty rows */}
+                    {Array.from({ length: Math.max(0, 10 - (serviceItems?.length || 0)) }).map((_, index) => (
+                        <tr key={`empty-${index}`}>
+                            <td className="p-2 border border-gray-300 text-center">{(serviceItems?.length || 0) + index + 1}</td>
+                            <td className="p-2 border border-gray-300">&nbsp;</td>
+                            <td className="p-2 border border-gray-300"></td>
+                            <td className="p-2 border border-gray-300"></td>
+                            <td className="p-2 border border-gray-300 text-right">{formatCurrency(0)}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
       </section>
 
-      <section className="flex justify-between items-start text-xs">
-        <div className="w-1/2">
+      <section className="flex flex-col sm:flex-row justify-between items-start text-xs gap-4">
+        <div className="w-full sm:w-1/2">
             <div className="border border-gray-300">
                 <div className="p-1 font-semibold bg-gray-100">AÇIKLAMALAR:</div>
                 <div className="p-1 h-24">Teklifin geçerlilik süresi 15 gündür.</div>
             </div>
         </div>
-        <div className="w-1/3">
+        <div className="w-full sm:w-1/3">
             <table className="w-full border-collapse">
                 <tbody>
                     <tr>
@@ -135,7 +137,7 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
         </div>
       </section>
 
-      <footer className="grid grid-cols-2 gap-4 mt-8 pt-4 border-t border-gray-300 text-xs">
+      <footer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 pt-4 border-t border-gray-300 text-xs">
         <div className="border border-gray-300 p-2">
             <p className="font-semibold">SİPARİŞİ ALAN / TEKLİF VEREN</p>
             <p className="mt-2">Adı-Soyadı: Şahin SOYSAL</p>
