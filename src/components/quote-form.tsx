@@ -28,7 +28,6 @@ import {
 } from '@/components/ui/table';
 import { Building2, Plus, Trash2, User, FileText } from 'lucide-react';
 import type { QuoteFormData } from '@/lib/schema';
-import ServiceAgreementModal from './service-agreement-modal';
 
 export default function QuoteForm() {
   const form = useFormContext<QuoteFormData>();
@@ -240,9 +239,6 @@ export default function QuoteForm() {
               <Plus className="mr-2 h-4 w-4" />
               Kalem Ekle
             </Button>
-            <div className='mt-6'>
-                <ServiceAgreementModal />
-            </div>
           </CardContent>
         </Card>
       </form>
