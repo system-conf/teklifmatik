@@ -36,13 +36,12 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
       <header className="flex justify-between items-start mb-8 pb-4 border-b border-gray-300">
         <div className="flex-auto pr-4 mb-4">
           {logoUrl && (
-            <Image
+            <img
               src={logoUrl}
               alt={`${companyName} Logo`}
               width={160}
               height={80}
               className="object-contain mb-4"
-              data-ai-hint={companyLogoPlaceholder?.imageHint || 'company logo'}
             />
           )}
            <div>
