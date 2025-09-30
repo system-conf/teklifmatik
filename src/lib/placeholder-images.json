@@ -3,7 +3,7 @@
     {
       "id": "companyLogo",
       "description": "A placeholder for the company logo.",
-      "imageUrl": "/logooo.png",
+      "imageUrl": "/logo.png",
       "imageHint": "plumber character logo"
     }
   ]

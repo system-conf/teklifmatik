@@ -43,7 +43,6 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
               height={80}
               className="object-contain mb-4"
               data-ai-hint={companyLogoPlaceholder?.imageHint || 'company logo'}
-              unoptimized
             />
           )}
            <div>
