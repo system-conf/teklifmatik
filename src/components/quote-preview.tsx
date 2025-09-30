@@ -5,7 +5,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { QuoteFormData } from '@/lib/schema';
 
 interface QuotePreviewProps {
-  watchedData: QuoteFormData;
+  watchedData: Omit<QuoteFormData, 'logoUrl'>;
 }
 
 const formatCurrency = (amount: number) =>
@@ -13,13 +13,13 @@ const formatCurrency = (amount: number) =>
 
 export default function QuotePreview({ watchedData }: QuotePreviewProps) {
   const companyLogoPlaceholder = PlaceHolderImages.find((p) => p.id === 'companyLogo');
+  const logoUrl = companyLogoPlaceholder?.imageUrl || '';
   
   const {
     companyName,
     companyAddress,
     companyPhone,
     companyEmail,
-    logoUrl,
     billToName,
     billToAddress,
     quoteDate,

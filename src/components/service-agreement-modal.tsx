@@ -32,7 +32,7 @@ export default function ServiceAgreementModal() {
     setAgreement('');
     const values = getValues();
     const serviceDescription = values.serviceItems
-      .map(item => `${item.description} (${item.cost} TL)`)
+      .map(item => `${item.description} (${item.unitPrice} TL)`)
       .join(', ');
 
     const input = {

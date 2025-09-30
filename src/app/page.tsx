@@ -7,7 +7,6 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 import { formSchema, type QuoteFormData } from '@/lib/schema';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import QuoteForm from '@/components/quote-form';
 import QuotePreview from '@/components/quote-preview';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,6 @@ import { Logo } from '@/components/icons';
 
 export default function Home() {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
-  const companyLogoPlaceholder = PlaceHolderImages.find((p) => p.id === 'companyLogo');
   const previewRef = useRef<HTMLDivElement>(null);
 
   const methods = useForm<QuoteFormData>({
@@ -26,7 +24,6 @@ export default function Home() {
       companyAddress: 'Kemalpaşa Mah. İmaret Yokuşu Sk. No:28 - İzmit / KOCAELİ',
       companyPhone: '0534 948 23 74',
       companyEmail: 'info@sahintesisat.com.tr',
-      logoUrl: companyLogoPlaceholder?.imageUrl || '',
       billToName: '',
       billToAddress: '',
       quoteDate: '',
