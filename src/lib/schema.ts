@@ -17,6 +17,7 @@ export const formSchema = z.object({
   quoteId: z.string().min(1, 'Teklif No gereklidir.'),
   serviceItems: z.array(serviceItemSchema).min(1, 'En az bir hizmet kalemi gereklidir.'),
   includeVat: z.boolean(),
+  vatRate: z.coerce.number().min(0, 'KDV oranı negatif olamaz.').max(100, 'KDV oranı 100\'den büyük olamaz.'),
 });
 
 export type QuoteFormData = z.infer<typeof formSchema>;

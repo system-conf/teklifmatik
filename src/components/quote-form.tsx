@@ -38,6 +38,8 @@ export default function QuoteForm() {
     name: 'serviceItems',
   });
 
+  const includeVat = form.watch('includeVat');
+
   return (
     <Form {...form}>
       <form className="space-y-6">
@@ -254,14 +256,14 @@ export default function QuoteForm() {
                 </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
             <FormField
               control={form.control}
               name="includeVat"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
-                    <FormLabel>KDV Dahil (%20)</FormLabel>
+                    <FormLabel>KDV Dahil</FormLabel>
                     <FormDescription>
                       Toplam tutara KDV eklensin mi?
                     </FormDescription>
@@ -275,6 +277,21 @@ export default function QuoteForm() {
                 </FormItem>
               )}
             />
+            {includeVat && (
+              <FormField
+                control={form.control}
+                name="vatRate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>KDV Oranı (%)</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </CardContent>
         </Card>
       </form>

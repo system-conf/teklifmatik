@@ -36,6 +36,7 @@ export default function Home() {
         { description: 'Fayans işleri', quantity: 1, unitPrice: 0 },
       ],
       includeVat: true,
+      vatRate: 20,
     },
     mode: 'onChange',
   });
@@ -114,7 +115,7 @@ export default function Home() {
         <header className="bg-card border-b sticky top-0 z-20 shadow-sm">
           <div className="container mx-auto flex justify-between items-center p-4">
             <div className="flex items-center gap-3">
-              <Logo className="h-8 w-8 text-primary" />
+              <Logo className="h-10 w-10 text-primary" />
               <h1 className="text-2xl font-bold font-headline text-card-foreground">
                 Teklifmatik
               </h1>

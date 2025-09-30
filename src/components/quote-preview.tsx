@@ -1,6 +1,6 @@
 "use client";
 
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Logo } from '@/components/icons';
 import type { QuoteFormData } from '@/lib/schema';
 
 interface QuotePreviewProps {
@@ -11,9 +11,6 @@ const formatCurrency = (amount: number) =>
   new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(amount);
 
 export default function QuotePreview({ watchedData }: QuotePreviewProps) {
-  const companyLogoPlaceholder = PlaceHolderImages.find((p) => p.id === 'companyLogo');
-  const logoUrl = companyLogoPlaceholder?.imageUrl || '';
-  
   const {
     companyName,
     companyAddress,
@@ -25,25 +22,18 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
     quoteId,
     serviceItems,
     includeVat,
+    vatRate,
   } = watchedData;
 
   const subtotal = serviceItems?.reduce((sum, item) => sum + (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0), 0) || 0;
-  const vat = includeVat ? subtotal * 0.20 : 0; // %20 KDV
-  const total = subtotal + vat;
+  const vatAmount = includeVat ? subtotal * (Number(vatRate) / 100) : 0;
+  const total = subtotal + vatAmount;
 
   return (
     <div className="bg-white text-black p-8 font-sans text-sm border border-gray-300">
       <header className="flex justify-between items-start mb-8 pb-4 border-b border-gray-300">
         <div className="flex-auto pr-4 mb-4">
-          {logoUrl && (
-            <img
-              src={logoUrl}
-              alt={`${companyName} Logo`}
-              width={160}
-              height={80}
-              className="object-contain mb-4"
-            />
-          )}
+            <Logo className="w-40 h-auto mb-4" />
            <div>
             <p className="text-xs text-gray-600">{companyAddress}</p>
             <p className="text-xs text-gray-600">Telefon: {companyPhone}</p>
@@ -132,8 +122,8 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
                     </tr>
                     {includeVat && (
                       <tr>
-                          <td className="p-2 font-semibold">20% KDV</td>
-                          <td className="p-2 text-right border border-gray-300">{formatCurrency(vat)}</td>
+                          <td className="p-2 font-semibold">{`%${vatRate} KDV`}</td>
+                          <td className="p-2 text-right border border-gray-300">{formatCurrency(vatAmount)}</td>
                       </tr>
                     )}
                     <tr>
