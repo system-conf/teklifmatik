@@ -52,7 +52,7 @@ export default function QuotePreview({ watchedData }: QuotePreviewProps) {
             <p className="text-xs text-gray-600">E-posta: {companyEmail}</p>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center w-full absolute">
             <h1 className="text-2xl font-bold uppercase">Müşteri Teklif ve Sipariş Formu</h1>
         </div>
       </header>
